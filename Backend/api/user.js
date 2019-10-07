@@ -34,7 +34,7 @@ module.exports = app => {
         }
 
         user.password = encryptPassword(user.password)
-        delete user.confirmPassword
+        delete  user.confirmPassword
 
         if (user.id) {
             app.db('users')
@@ -51,5 +51,23 @@ module.exports = app => {
         }
     }
 
-    return { save }
+    const get = (req, res) => {
+        app.db('users')
+            .select('id', 'name', 'email', 'admin')
+            .whereNull('deletedAt')
+            .then(users => res.json(users))
+            .catch(err => res.status(500).send(err))
+    }
+
+    const getById = (req, res) => {
+        app.db('users')
+            .select('id', 'name', 'email', 'admin')
+            .where({ id: req.params.id })
+            .whereNull('deletedAt')
+            .first()
+            .then(users => res.json(users))
+            .catch(err => res.status(500).send(err))
+    }
+
+    return { save, get, getById }
 }
