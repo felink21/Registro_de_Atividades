@@ -34,7 +34,7 @@ module.exports = app => {
         }
 
         user.password = encryptPassword(user.password)
-        delete  user.confirmPassword
+        delete user.confirmPassword
 
         if (user.id) {
             app.db('users')
@@ -69,5 +69,22 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, get, getById }
+    const remove = async (req, res) => {
+        try {
+            const articles = await app.db('articles')
+                .where({ userId: req.params.id })
+            notExistsOrError(articles, 'Usuário possui artigos!')
+
+            const rowsUpdate = await app.db('users')
+                .update({ deletedAt: new Date() })
+                .where({ id: req.params.id })
+            existsOrError(rowsUpdate, 'Usuário não encontrado!')
+
+            res.status(204).send()
+        } catch (msg) {
+            res.status(400).send(msg)
+        }
+    }
+
+    return { save, get, getById, remove }
 }
