@@ -8,19 +8,25 @@ export default class Main extends Component {
     };
 
     state = {
+        atualUrl: '',
         pokemon: [],
+        page: 0,
+        count: 0
     }
 
     componentDidMount() {
         this.loadActivities();
     }
 
-    loadActivities = async () => {
+    loadActivities = async (atualUrl) => {
         try {
-            api.get('')
+            api.get(atualUrl)
                 .then(res => {
                     const pokemon = res.data.results;
-                    this.setState({pokemon})
+                    const atualUrl = res.next;
+                    const count = res.count;
+                    const page = this.state.page + 20;
+                    this.setState({atualUrl, pokemon, count, page})
                 })
 
         } catch (e) {
@@ -28,12 +34,23 @@ export default class Main extends Component {
         }
     };
 
+    loadMore = () => {
+        const {page, count} = this.state;
+        if (page === count) return;
+        const url = `?offset=${page}&limit=20`;
+        this.loadActivities(url)
+    }
+
     renderItem = ({ item }) => (
         <View style={styles.productContainer}>
             <Text style={styles.productTitle}>{item.name}</Text>
-            <Text style={styles.productDescription}>{item.url}</Text>
+            {/*<Text style={styles.productDescription}>{item.url}</Text>*/}
 
-            <TouchableOpacity style={styles.productButton} onPress={() => {}}>
+            <TouchableOpacity
+                style={styles.productButton}
+                onPress={() => {
+                    this.props.navigation.navigate('Activity', { product: item });
+                }}>
                 <Text style={styles.productButtonText}>Acessar</Text>
             </TouchableOpacity>
         </View>
@@ -47,6 +64,8 @@ export default class Main extends Component {
                     data={this.state.pokemon}
                     keyExtractor={item => item.id}
                     renderItem={this.renderItem}
+                    onEndReached={this.loadMore}
+                    onEndReachedThreshold={0.1}
                 />
             </View>
         );
