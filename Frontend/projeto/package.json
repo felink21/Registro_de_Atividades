@@ -15,7 +15,8 @@
     "react-input-autosize": "^2.2.2",
     "react-native": "0.61.2",
     "react-native-gesture-handler": "^1.4.1",
-    "react-navigation": "^2.18.3"
+    "react-navigation": "^2.18.3",
+    "react-native-elements": "^0.19.1"
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
