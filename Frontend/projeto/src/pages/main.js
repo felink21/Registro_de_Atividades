@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         height: 42,
         borderRadius: 5,
         borderWidth: 2,
-        borderColor: '#DA552F',
+        borderColor: '#1a13da',
         backgroundColor: 'transparent',
         justifyContent: 'center',
         alignItems: 'center',
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
 
     productButtonText: {
         fontSize: 16,
-        color: '#DA552F',
+        color: '#4042da',
         fontWeight: 'bold'
     }
 });
