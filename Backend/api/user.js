@@ -63,21 +63,37 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
+    const getActivitiesOfUser = (req, res) => {
+        app.db('activities')
+            .select('id','name','description')
+            .where({userId: req.params.id})
+            .then(activities => res.json(activities))
+            .catch(err => res.status(500).send(err))
+    }
+
     const remove = async (req, res) => {
         try {
-            const articles = await app.db('articles')
-                .where({ userId: req.params.id })
-            notExistsOrError(articles, 'Usuário possui artigos!')
+            existsOrError(req.params.id, 'Código do Usuário não informado!')
 
-            const rowsUpdate = await app.db('users')
-                .where({ id: req.params.id })
-            existsOrError(rowsUpdate, 'Usuário não encontrado!')
+            const haveActivities = await app.db('activities')
+                .where({userId: req.params.id})
+                .first()
+            notExistsOrError(haveActivities, 'Usuário ainda tem atividades')
+
+            const rowsDeleted = await app.db('users')
+                .where({ id: req.params.id }).del()
+
+            try {
+                existsOrError(rowsDeleted, 'Usuário não encontrado!')
+            } catch (msg) {
+                return res.status(400).send(msg)
+            }
 
             res.status(204).send()
         } catch (msg) {
-            res.status(400).send(msg)
+            res.status(500).send(msg)
         }
     }
 
-    return { save, get, getById, remove }
+    return { save, get, getById, getActivitiesOfUser, remove}
 }

@@ -25,4 +25,10 @@ module.exports = app => {
         .get(app.api.activity.getById)
         .put(app.api.activity.save)
         .delete(app.api.activity.remove)
+
+    app.route('/users/:id/activities')
+        .get(app.api.user.getActivitiesOfUser)
+
+    app.route('/users/:idUser/activities/:id')
+        .delete(app.api.activity.remove)
 }
