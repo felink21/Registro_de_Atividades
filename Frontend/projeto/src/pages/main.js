@@ -51,7 +51,7 @@ export default class Main extends Component {
                 onPress={() => {
                     this.props.navigation.navigate('Activity', { product: item });
                 }}>
-                <Text style={styles.productButtonText}>Acessar</Text>
+                <Text style={styles.productButtonText}>Descrição</Text>
             </TouchableOpacity>
         </View>
     )
@@ -66,6 +66,7 @@ export default class Main extends Component {
                     renderItem={this.renderItem}
                     onEndReached={this.loadMore}
                     onEndReachedThreshold={0.1}
+
                 />
             </View>
         );
