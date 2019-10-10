@@ -4,6 +4,7 @@ Siga os passos abaixo para rodar a aplicação
 ### Antes de tudo:
 - Criar localmente um arquivo .env onde tem o arquivo modelo Backend/env_file, e insira um código qualquer dentro dele em 'authSecret'
 - Alterar seu localhost no arquivo \Frontend\projeto\src\services\api.js
+- Qualquer problema, tente a branch develop ao invés da master
 ## Instruções
 
 
