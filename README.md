@@ -1,13 +1,16 @@
 # Registro de Atividades Incodde
 
 Siga os passos abaixo para rodar a aplicação
-
+### Antes de tudo:
+- Criar localmente um arquivo .env onde tem o arquivo modelo Backend/env_file, e insira um código qualquer dentro dele em 'authSecret'
+- Alterar seu localhost no arquivo \Frontend\projeto\src\services\api.js
 ## Instruções
+
 
 1. Banco de Dados
 
-- Instalar o Mysql
-- Logar no mysql pelo terminal (senha: 12345)
+- Pode instalar o Mysql
+- Pode também logar no mysql pelo terminal (senha: 12345)
 
 ```bash
 mysql u- felipemysql -p
