@@ -27,8 +27,10 @@ module.exports = app => {
         .delete(app.api.activity.remove)
 
     app.route('/users/:id/activities')
+    //  .all(app.config.passport.authenticate())
         .get(app.api.user.getActivitiesOfUser)
 
     app.route('/users/:idUser/activities/:id')
+    //  .all(app.config.passport.authenticate())
         .delete(app.api.activity.remove)
 }

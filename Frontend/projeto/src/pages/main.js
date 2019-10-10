@@ -17,6 +17,9 @@ export default class Main extends Component {
     componentDidMount() {
         this.loadActivities();
     }
+    
+    componentWillUnmount() {
+    }
 
     loadActivities = async (atualUrl) => {
         try {
