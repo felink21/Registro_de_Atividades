@@ -65,7 +65,7 @@ module.exports = app => {
 
     const getActivitiesOfUser = (req, res) => {
         app.db('activities')
-            .select('id','name','description')
+            .select('id','name','description', 'status', 'userId')
             .where({userId: req.params.id})
             .then(activities => res.json(activities))
             .catch(err => res.status(500).send(err))

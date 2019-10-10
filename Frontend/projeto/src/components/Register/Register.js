@@ -4,7 +4,7 @@ import {Keyboard, Text, View, TextInput, TouchableWithoutFeedback, Alert, Keyboa
 import { Button } from 'react-native-elements';
 import api from '../../services/api';
 
-export default class Login extends Component {
+export default class Register extends Component {
     static navigationOptions = {
         title: "Atividades",
     };
@@ -64,6 +64,7 @@ export default class Login extends Component {
             alert('Passwords não Compatíveis!')
             navigate('Login')
             navigate('Register')
+
         } else {
             api.post(`/signup`, {name: name, email: email, password: password, confirmPassword: confirmPassword})
                 .then(function (response) {

@@ -13,7 +13,7 @@ export default class Login extends Component {
     };
 
     state = {
-        userID: '',
+        id: '',
         name: '',
         token: '',
         email: '',
@@ -79,12 +79,12 @@ export default class Login extends Component {
         else {
             api.post(`/signin`, {email: email, password: password})
                 .then(res => {
-                    const userID = res.data.id
+                    const id = res.data.id
                     const name = res.data.name
                     const token = res.data.token
-                    this.setState({userID, name, token})
+                    this.setState({id, name, token})
                 })
-                .catch(msg => alert("Erro no Signin"))
+                .catch(msg => alert("Usuário não Cadastrado!"))
                 .then(this.validator)
         }
     }

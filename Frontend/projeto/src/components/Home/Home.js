@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './HomeStyles'
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import api from '../../services/api';
+import {Button} from "react-native-elements";
 
 export default class Home extends Component {
     static navigationOptions = {
@@ -9,7 +10,7 @@ export default class Home extends Component {
     };
 
     state = {
-
+        id: 1,
         activities: []
     }
 
@@ -20,7 +21,7 @@ export default class Home extends Component {
     componentWillUnmount() {
     }
 
-    loadActivities = async (atualUrl) => {
+    loadActivities = async () => {
         try {
             api.get(`/users/${1}/activities`)
                 .then(res => {
@@ -33,15 +34,17 @@ export default class Home extends Component {
         }
     };
 
+
+
     renderItem = ({ item }) => (
         <View style={styles.productContainer}>
             <Text style={styles.productTitle}>{item.name}</Text>
-            {/*<Text style={styles.productDescription}>{item.url}</Text>*/}
+            <Text style={styles.productDescription}>Status: {item.status}</Text>
 
             <TouchableOpacity
                 style={styles.productButton}
                 onPress={() => {
-                    this.props.navigation.navigate('Activity', { product: item });
+                    this.props.navigation.navigate('Description', { product: item });
                 }}>
                 <Text style={styles.productButtonText}>Descrição</Text>
             </TouchableOpacity>
@@ -49,8 +52,20 @@ export default class Home extends Component {
     )
 
     render() {
+        const { id } = this.state
+
         return (
             <View style={{flex: 1, paddingTop: 50, paddingLeft: 5}}>
+                <View style={styles.loginFormView}>
+
+                    <Button
+                        buttonStyle={styles.loginButton}
+                        onPress={() => {
+                            this.props.navigation.navigate('CreateActivity', { userId: id });
+                        }}
+                        title="Add Atividade"
+                    />
+                </View>
                 <FlatList
                     contentContainerStyle={styles.list}
                     data={this.state.activities}

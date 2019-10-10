@@ -49,5 +49,13 @@ export default {
         fontSize: 16,
         color: '#4042da',
         fontWeight: 'bold'
-    }
+    },
+
+    loginButton: {
+        backgroundColor: '#3897f1',
+        borderRadius: 5,
+        height: 50,
+        width: 200,
+        alignSelf: 'center'
+    },
 }

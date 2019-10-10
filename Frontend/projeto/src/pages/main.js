@@ -17,7 +17,7 @@ export default class Main extends Component {
     componentDidMount() {
         this.loadActivities();
     }
-    
+
     componentWillUnmount() {
     }
 
